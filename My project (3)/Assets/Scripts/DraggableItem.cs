@@ -14,12 +14,21 @@ using UnityEngine.UI;
  */
 public class DraggableItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
 {
+
+    [SerializeField] private Image imageRef;
+
     //this variable is going to represent where our item locks to after the drag event
     [HideInInspector] public Transform parentAfterDrag;
-    [SerializeField]
-    private Image imageRef;
+    //reference to item data. To be assigned by manager
+    [HideInInspector] public Item itemRef;
 
-    //
+    //when you load up a new draggable item, grab image data from item ref
+    public void InitalizeDraggableItem(Item newItem)
+    {
+        itemRef = newItem;
+        imageRef.sprite = newItem.displayImage;
+    }
+    
     public void OnBeginDrag(PointerEventData eventData)
     {
         //sets our placeholder to the spot it started in (on top of a UI square)
