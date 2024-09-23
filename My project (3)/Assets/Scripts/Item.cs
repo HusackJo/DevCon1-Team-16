@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-/*
- * This is a ScriptableObject used to track the data that our items should contain.
+/* This is a ScriptableObject used to track the data that our items should contain.
  */
 
 [CreateAssetMenu(menuName = "Scriptable Object/Item", fileName = "New Item")]

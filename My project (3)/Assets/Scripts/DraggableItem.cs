@@ -22,7 +22,11 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, 
     //reference to item data. To be assigned by manager
     [HideInInspector] public Item itemRef;
 
-    //when you load up a new draggable item, grab image data from item ref
+
+    /// <summary>
+    /// Call when spawning a new draggable item, loads image data based on passed in Item data
+    /// </summary>
+    /// <param name="newItem"></param>
     public void InitalizeDraggableItem(Item newItem)
     {
         itemRef = newItem;

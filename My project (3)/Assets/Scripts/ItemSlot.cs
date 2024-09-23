@@ -5,8 +5,7 @@ using UnityEngine.EventSystems;
 
 public class ItemSlot : MonoBehaviour, IDropHandler
 {
-    /*
-     * Class that handles the dropping of items.
+    /* Class that handles the dropping of items.
      * OnDrop triggers when a mouse drag event resolves with the cursor above this object.
      * Simply accesses the DraggableItem class attached to our items, and changes the object's parent.
      */
