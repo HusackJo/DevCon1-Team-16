@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
+    //This class is the code for what the actual bullet's properties are - Xander
     public float speed;
     public bool hit;
     public float direction;
