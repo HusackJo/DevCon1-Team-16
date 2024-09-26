@@ -11,11 +11,13 @@ public class PlayerAttack : MonoBehaviour
     public float attackCooldown;
     public Transform firePoint;
     public GameObject[] bullets;
-    
+    public GameObject bulletPrefab;
+    public float bulletSpeed = 10;
+
     // Update is called once per frame
     private void Update()
     {
-        if (Input.GetMouseButton(0) && CooldownTimer > attackCooldown && PlayerMovement.isGrounded)
+        if (Input.GetMouseButtonDown(0))
         {
             Attack();
 
@@ -28,8 +30,10 @@ public class PlayerAttack : MonoBehaviour
     {
         CooldownTimer = 0;
 
-        bullets[FindBullet()].transform.position = firePoint.position;
-        bullets[FindBullet()].GetComponent<Bullet>().SetDirection(Mathf.Sign(transform.localScale.x));
+        //bullets[FindBullet()].transform.position = firePoint.position;
+        //bullets[FindBullet()].GetComponent<Bullet>().SetDirection(Mathf.Sign(transform.localScale.x));
+        var bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        bullet.GetComponent<Rigidbody>().velocity = firePoint.right * bulletSpeed;
     }
 
     private int FindBullet()
