@@ -8,12 +8,14 @@ public class PlayerAttack : MonoBehaviour
 {
     private PlayerController PlayerMovement;
     private float CooldownTimer = Mathf.Infinity;
-    private float AttackCooldown;
+    public float attackCooldown;
+    private Transform firePoint;
+    private GameObject[] bullets;
     
     // Update is called once per frame
     private void Update()
     {
-        if (Input.GetMouseButton(0) && CooldownTimer > AttackCooldown && PlayerMovement.canAttack())
+        if (Input.GetMouseButton(0) && CooldownTimer > attackCooldown && PlayerMovement.canAttack())
         {
             Attack();
 
@@ -24,5 +26,8 @@ public class PlayerAttack : MonoBehaviour
     private void Attack()
     {
         CooldownTimer = 0;
+
+        bullets[0].transform.position = firePoint.position;
+        bullets[0].GetComponent<Bullet>().SetDirection(Mathf.Sign(transform.localscale.x));
     }
 }
