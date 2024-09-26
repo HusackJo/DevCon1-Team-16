@@ -5,8 +5,8 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public float speed;
-    private bool hit;
-    private float direction;
+    public bool hit;
+    public float direction;
 
 
     private BoxCollider2D boxCollider;

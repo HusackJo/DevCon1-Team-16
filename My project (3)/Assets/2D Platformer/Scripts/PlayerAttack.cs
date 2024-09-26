@@ -7,7 +7,7 @@ using UnityEngine;
 public class PlayerAttack : MonoBehaviour
 {
     private PlayerController PlayerMovement;
-    private float CooldownTimer = Mathf.Infinity;
+    public float CooldownTimer = Mathf.Infinity;
     public float attackCooldown;
     public Transform firePoint;
     public GameObject[] bullets;
@@ -15,7 +15,7 @@ public class PlayerAttack : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        if (Input.GetMouseButton(0) && CooldownTimer > attackCooldown && PlayerMovement.canAttack())
+        if (Input.GetMouseButton(0) && CooldownTimer > attackCooldown && PlayerMovement.isGrounded)
         {
             Attack();
 
@@ -23,11 +23,23 @@ public class PlayerAttack : MonoBehaviour
         } 
     }
 
+
     private void Attack()
     {
         CooldownTimer = 0;
 
-        bullets[0].transform.position = firePoint.position;
-        bullets[0].GetComponent<Bullet>().SetDirection(Mathf.Sign(transform.localScale.x));
+        bullets[FindBullet()].transform.position = firePoint.position;
+        bullets[FindBullet()].GetComponent<Bullet>().SetDirection(Mathf.Sign(transform.localScale.x));
+    }
+
+    private int FindBullet()
+    {
+        for (int i = 0; i < bullets.Length; i++)
+        {
+            if (!bullets[i].activeInHierarchy)
+                return i;
+        }
+        return 0;
+
     }
 }

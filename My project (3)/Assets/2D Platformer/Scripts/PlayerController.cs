@@ -14,7 +14,7 @@ namespace Platformer
         [HideInInspector]
         public bool deathState = false;
 
-        private bool isGrounded;
+        public bool isGrounded;
         public Transform groundCheck;
 
         private Rigidbody2D rigidbody;
