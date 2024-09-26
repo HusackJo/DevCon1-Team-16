@@ -4,14 +4,25 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private float speed;
+    private bool hit;
+
+
+    private BoxCollider2D boxCollider;
+
+    private void Awake()
     {
-        
+        boxCollider = GetComponent<BoxCollider2D>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
+    {
+        if (hit) return;
+        float movementSpeed = speed * Time.deltaTime;
+        transform.Translate(movementSpeed, 0, 0);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         
     }
