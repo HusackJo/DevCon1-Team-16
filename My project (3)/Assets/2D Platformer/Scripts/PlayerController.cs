@@ -96,5 +96,10 @@ namespace Platformer
                 Destroy(other.gameObject);
             }
         }
+
+        public bool canAttack()
+        {
+            return isGrounded;
+        }
     }
 }
