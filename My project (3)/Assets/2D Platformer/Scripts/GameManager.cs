@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Platformer
@@ -13,10 +14,14 @@ namespace Platformer
         private PlayerController player;
         public GameObject deathPlayerPrefab;
         public Text coinText;
+        public GameObject menuCanvas;
+
 
         void Start()
         {
             player = GameObject.Find("Player").GetComponent<PlayerController>();
+            menuCanvas = GameObject.Find("CanvasMenu");
+            menuCanvas.SetActive(false);
         }
 
         void Update()
@@ -30,11 +35,22 @@ namespace Platformer
                 player.deathState = false;
                 Invoke("ReloadLevel", 3);
             }
+            if (Input.GetKeyUp(KeyCode.E))
+            {
+                if (menuCanvas.activeSelf)
+                {
+                    menuCanvas.SetActive(false);
+                }
+                else
+                {
+                    menuCanvas.SetActive(true);
+                }
+            }
         }
 
         private void ReloadLevel()
         {
-            Application.LoadLevel(Application.loadedLevel);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 }
