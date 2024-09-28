@@ -1,6 +1,8 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.Universal.Internal;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -21,7 +23,6 @@ namespace Platformer
         {
             player = GameObject.Find("Player").GetComponent<PlayerController>();
             menuCanvas = GameObject.Find("CanvasMenu");
-            menuCanvas.SetActive(false);
         }
 
         void Update()
