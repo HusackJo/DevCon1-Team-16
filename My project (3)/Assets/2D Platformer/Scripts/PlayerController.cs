@@ -37,6 +37,8 @@ namespace Platformer
 
         void Update()
         {
+            //reset attack anim trigger
+            animator.SetInteger("attackTrigger", 0);
             if (Input.GetButton("Horizontal")) 
             {
                 moveInput = Input.GetAxis("Horizontal");
@@ -51,6 +53,11 @@ namespace Platformer
             if(Input.GetKeyDown(KeyCode.Space) && isGrounded )
             {
                 rigidbody.AddForce(transform.up * jumpForce, ForceMode2D.Impulse);
+            }
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                //Melee attack!
+                animator.SetInteger("attackTrigger", 1);
             }
             if (!isGrounded)animator.SetInteger("playerState", 2); // Turn on jump animation
 
