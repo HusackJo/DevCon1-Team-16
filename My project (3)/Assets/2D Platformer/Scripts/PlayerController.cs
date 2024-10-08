@@ -20,12 +20,14 @@ namespace Platformer
         private Rigidbody2D rigidbody;
         private Animator animator;
         private GameManager gameManager;
+        private InventoryManager inventoryManager;
 
         void Start()
         {
             rigidbody = GetComponent<Rigidbody2D>();
             animator = GetComponent<Animator>();
             gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+            inventoryManager = GameObject.Find("InventoryManager").GetComponent<InventoryManager>();
         }
 
         private void FixedUpdate()
@@ -92,6 +94,7 @@ namespace Platformer
         {
             if (other.gameObject.tag == "Coin")
             {
+                inventoryManager.AddItem(other.GetComponent<Coin>().coinData);
                 gameManager.coinsCounter += 1;
                 Destroy(other.gameObject);
             }
