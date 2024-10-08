@@ -20,6 +20,8 @@ namespace Platformer
         private Rigidbody2D rigidbody;
         private Animator animator;
         private GameManager gameManager;
+        [SerializeField]
+        private InventoryManager inventoryManager;
 
         void Start()
         {
@@ -92,6 +94,7 @@ namespace Platformer
         {
             if (other.gameObject.tag == "Coin")
             {
+                inventoryManager.AddItem(other.GetComponent<Coin>().coinData);
                 gameManager.coinsCounter += 1;
                 Destroy(other.gameObject);
             }
