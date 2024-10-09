@@ -20,12 +20,14 @@ namespace Platformer
         private Rigidbody2D rigidbody;
         private Animator animator;
         private GameManager gameManager;
+        private InventoryManager inventoryManager;
 
         void Start()
         {
             rigidbody = GetComponent<Rigidbody2D>();
             animator = GetComponent<Animator>();
             gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+            inventoryManager = GameObject.Find("InventoryManager").GetComponent<InventoryManager>();
         }
 
         private void FixedUpdate()
@@ -35,6 +37,8 @@ namespace Platformer
 
         void Update()
         {
+            //reset attack anim trigger
+            animator.SetInteger("attackTrigger", 0);
             if (Input.GetButton("Horizontal")) 
             {
                 moveInput = Input.GetAxis("Horizontal");
@@ -49,6 +53,11 @@ namespace Platformer
             if(Input.GetKeyDown(KeyCode.Space) && isGrounded )
             {
                 rigidbody.AddForce(transform.up * jumpForce, ForceMode2D.Impulse);
+            }
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                //Melee attack!
+                animator.SetInteger("attackTrigger", 1);
             }
             if (!isGrounded)animator.SetInteger("playerState", 2); // Turn on jump animation
 
@@ -92,6 +101,7 @@ namespace Platformer
         {
             if (other.gameObject.tag == "Coin")
             {
+                inventoryManager.AddItem(other.GetComponent<Coin>().coinData);
                 gameManager.coinsCounter += 1;
                 Destroy(other.gameObject);
             }
