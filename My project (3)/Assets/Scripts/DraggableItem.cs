@@ -12,7 +12,7 @@ using UnityEngine.UI;
  * using UnityEngine.UI;
  * lines to enable easy drag and drop functionality
  */
-public class DraggableItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
+public class DraggableItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler, IPointerClickHandler
 {
 
     [SerializeField] private Image imageRef;
@@ -32,7 +32,7 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, 
         itemRef = newItem;
         imageRef.sprite = newItem.displayImage;
     }
-    
+
     public void OnBeginDrag(PointerEventData eventData)
     {
         //sets our placeholder to the spot it started in (on top of a UI square)
@@ -59,5 +59,15 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, 
     {
         transform.SetParent(parentAfterDrag);
         imageRef.raycastTarget = true;
+
+
+    }
+
+
+    public GameObject selectSquare;
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        selectSquare = GameObject.Find("SelectSquare");
+        selectSquare.transform.SetParent(transform.parent);
     }
 }
