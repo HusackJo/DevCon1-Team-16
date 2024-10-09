@@ -21,6 +21,9 @@ namespace Platformer
         private Animator animator;
         private GameManager gameManager;
         private InventoryManager inventoryManager;
+        private SelectionManaer selectionManager; // yeah we misspelled the class name but thats ok
+        private DraggableItem selectedItem;
+        private SpriteRenderer heldItemGraphic;
 
         void Start()
         {
@@ -28,6 +31,8 @@ namespace Platformer
             animator = GetComponent<Animator>();
             gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
             inventoryManager = GameObject.Find("InventoryManager").GetComponent<InventoryManager>();
+            selectionManager = GameObject.Find("SelectionManager").GetComponent<SelectionManaer>();
+            heldItemGraphic = GameObject.Find("HeldObject").GetComponent<SpriteRenderer>();
         }
 
         private void FixedUpdate()
@@ -39,6 +44,7 @@ namespace Platformer
         {
             //reset attack anim trigger
             animator.SetInteger("attackTrigger", 0);
+            //
             if (Input.GetButton("Horizontal")) 
             {
                 moveInput = Input.GetAxis("Horizontal");
@@ -50,6 +56,7 @@ namespace Platformer
             {
                 if (isGrounded) animator.SetInteger("playerState", 0); // Turn on idle animation
             }
+            //
             if(Input.GetKeyDown(KeyCode.Space) && isGrounded )
             {
                 rigidbody.AddForce(transform.up * jumpForce, ForceMode2D.Impulse);
@@ -59,8 +66,9 @@ namespace Platformer
                 //Melee attack!
                 animator.SetInteger("attackTrigger", 1);
             }
+            //
             if (!isGrounded)animator.SetInteger("playerState", 2); // Turn on jump animation
-
+            //
             if(facingRight == false && moveInput > 0)
             {
                 Flip();
@@ -69,6 +77,12 @@ namespace Platformer
             {
                 Flip();
             }
+            //
+            //Set held item to selected item
+            selectedItem = selectionManager.HotBarSlots[selectionManager.selectedSlot].GetComponentInChildren<DraggableItem>();
+            Debug.Log($"{selectedItem.imageRef.sprite.name}");
+            heldItemGraphic.sprite = selectedItem.imageRef.sprite;
+
         }
 
         private void Flip()

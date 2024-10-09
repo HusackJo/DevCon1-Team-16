@@ -15,7 +15,7 @@ using UnityEngine.UI;
 public class DraggableItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
 {
 
-    [SerializeField] private Image imageRef;
+    [SerializeField] public Image imageRef;
 
     //this variable is going to represent where our item locks to after the drag event
     [HideInInspector] public Transform parentAfterDrag;
